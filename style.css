@@ -1,5 +1,5 @@
 body {
-    background-color: purple;
+    background-color: #1f085c;
     text-align: center;
     font-size: 20px;
     color: beige;
@@ -28,6 +28,7 @@ section{
 #player {
     display: inline;
     color: black;
+    font-size: 60px;
 }
 
 #replay {

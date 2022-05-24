@@ -9,25 +9,12 @@
     var winner = '';
     var actualPlayer = '';
 
-//função para sortear o jogador a iniciar
-function sortPlayer(){
-    let selectplayer = Math.floor(Math.random() * 2);
 
-    //verifica o jogador sorteado
-    if(selectplayer === 1){
-        html.player.innerHTML = ' X';
-        actualPlayer = 'X';
-    }else{
-        html.player.innerHTML = ' O';
-        actualPlayer = 'O';
-    }
-
-    startGame();
-    
-}
 
 //incia o jogo e percorre o campo
 function startGame(){
+    html.player.innerHTML = ' X';
+    actualPlayer = 'X';
    for(let i = 0; i < 9; i++){
        //adiciona um evento de click para cada posição
        html.field[i].addEventListener('click', function play(){
@@ -43,14 +30,19 @@ function startGame(){
 
                 //verifica se existe um vencedor, se sim mostra
                 if(winner == 'X' || winner == 'O'){
-                    html.player.innerHTML = ` ${winner} venceu`;
-                    //se não houver vencedor, empate
-                }else if(winner == '-'){
-                    html.player.innerHTML = ' Velha';
-                }
+                    html.player.innerHTML = ` ${winner} Venceu`;   
+                }//verifica empate
+                else if(html.field[0].textContent != '-' && html.field[1].textContent != '-' && html.field[2].textContent != '-' && 
+                        html.field[3].textContent != '-' && html.field[4].textContent != '-' && html.field[5].textContent != '-' &&
+                        html.field[6].textContent != '-' && html.field[7].textContent != '-' && html.field[8].textContent != '-'){
+                        document.querySelector('#jogador').remove()
+                        html.player.innerHTML = 'Velha';
+               }
+                
             }
        })
    }
+   
 }
 
 //altera o jogador altual
@@ -66,17 +58,23 @@ function changePLayer(){
 
 //limpa o campo
 function clearField(){
+    actualPlayer = 'X'
+    html.player.innerHTML = ' X'
     for(let i = 0; i < 9; i++){
         html.field[i].textContent = '-'
         html.field[i].style.color = 'white'
         winner = ''
-        html.player.innerHTML = ''
+       
     }
+    document.querySelector('#jogador').innerHTML ='Jogador'
+    html.player.innerHTML = ' X'
+    startGame()
 }
 
-//buca pelo vencedor ou se empatou
-function getWinner(){
 
+//buca pelo vencedor ou se empatou
+function getWinner() {
+    
     let field = html.field;
 
     if((field[0].textContent==field[1].textContent) && (field[1].textContent==field[2].textContent) && (field[0].textContent != '-')){
@@ -92,7 +90,7 @@ function getWinner(){
         return field[0].textContent;
 
     }else if((field[2].textContent==field[4].textContent) && (field[4].textContent==field[6].textContent) && (field[2].textContent != '-')){
-        return filed[2].textContent;
+        return field[2].textContent;
 
     }else if((field[0].textContent==field[3].textContent) && (field[3].textContent==field[6].textContent) && (field[0].textContent != '-')){
         return field[0].textContent;
@@ -102,18 +100,6 @@ function getWinner(){
 
     }else if((field[2].textContent==field[5].textContent) && (field[5].textContent==field[8].textContent) && (field[2].textContent != '-')){
         return field[2].textContent;
-
-        //verifica se deu empate
-    }else if(field[0].textContent != '-' 
-            && field[1].textContent != '-'
-            && field[2].textContent != '-'
-            && field[3].textContent != '-'
-            && field[4].textContent != '-'
-            && field[5].textContent != '-'
-            && field[6].textContent != '-'
-            && field[7].textContent != '-'
-            && field[8].textContent != '-'){
-                return '-'
-    }
+    } 
 return '';
-}
+};
