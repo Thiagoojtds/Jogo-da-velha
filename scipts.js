@@ -31,14 +31,15 @@ function startGame(){
                 //verifica se existe um vencedor, se sim mostra
                 if(winner == 'X' || winner == 'O'){
                     html.player.innerHTML = ` ${winner} Venceu`;   
-                }//verifica empate
-                else if(html.field[0].textContent != '-' && html.field[1].textContent != '-' && html.field[2].textContent != '-' && 
-                        html.field[3].textContent != '-' && html.field[4].textContent != '-' && html.field[5].textContent != '-' &&
-                        html.field[6].textContent != '-' && html.field[7].textContent != '-' && html.field[8].textContent != '-'){
-                        document.querySelector('#jogador').remove()
-                        html.player.innerHTML = 'Velha';
-               }
+                }
                 
+                //verifica empate
+                if(html.field[0].textContent != '-' && html.field[1].textContent != '-' && html.field[2].textContent != '-' && 
+                    html.field[3].textContent != '-' && html.field[4].textContent != '-' && html.field[5].textContent != '-' &&
+                    html.field[6].textContent != '-' && html.field[7].textContent != '-' && html.field[8].textContent != '-' && winner == ''){
+                    document.querySelector('#jogador').innerHTML  = ''
+                    html.player.innerHTML = 'Velha';
+               }   
             }
        })
    }
@@ -58,14 +59,12 @@ function changePLayer(){
 
 //limpa o campo
 function clearField(){
-    actualPlayer = 'X'
-    html.player.innerHTML = ' X'
     for(let i = 0; i < 9; i++){
         html.field[i].textContent = '-'
         html.field[i].style.color = 'white'
-        winner = ''
-       
     }
+    winner = ''
+    actualPlayer = 'X'
     document.querySelector('#jogador').innerHTML ='Jogador'
     html.player.innerHTML = ' X'
     startGame()
